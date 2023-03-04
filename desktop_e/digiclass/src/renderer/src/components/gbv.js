@@ -5,6 +5,8 @@ const rejson = {
 	zhiri: "",
 	lastmsgtime: "",
 	tomorrow: 0,
+	username: "",
+	passwd: "",
 	weekly: "",
 	lession1: "",
 	src1: "",
@@ -46,7 +48,8 @@ const rejson = {
 	src13: "",
 	teacher13: "",
 	msgid: 0,
-	msg:"",
-	msgtitle:"",
+	msg: "",
+	msgtitle: "",
+	globalurl:"http://127.0.0.1:10000"
 };
 export default rejson;

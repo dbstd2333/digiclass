@@ -1,6 +1,5 @@
 <template>
   <div class="global">
-    <div data-tauri-drag-region class="top">点我移动</div>
     <router-view></router-view>
   </div>
 </template>

@@ -21,8 +21,6 @@
 
 <script>
 import { Modal } from "@arco-design/web-vue";
-import { appWindow } from "@tauri-apps/api/window";
-import { http } from "@tauri-apps/api";
 import gbv from "./gbv";
 export default {
   name: "MsgPage",

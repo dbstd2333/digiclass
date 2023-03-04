@@ -1,24 +1,31 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import gbv from '../renderer/src/components/gbv.js'
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 350,
+    height: 500,
     show: false,
+    frame: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      webSecurity: false,
+      nodeIntegration: true, // 在网页中集成Node
+      enableRemoteModule: true, // 打开remote模块
+      contextIsolation: false
     }
   })
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+    mainWindow.webContents.openDevTools();
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -29,7 +36,7 @@ function createWindow() {
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] + "/login")
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
@@ -40,7 +47,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
+  electronApp.setAppUserModelId('org.xjcwcloud.class')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -69,3 +76,35 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+ipcMain.handle('index-login', function (event, username, passwd2) {
+    console.log(username, passwd2)
+    const { net } = require('electron')
+    let data = {}
+    let userInfo = {
+      authcode: username,
+      passwd: passwd2
+    }
+    const request = net.request({
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      url: gbv.globalurl + '/api/auth'
+    })
+    var buf = JSON.stringify(userInfo)
+    request.write(buf)
+    request.on('response', (response) => {
+      response.on('data', (res) => {
+        data = JSON.parse(res.toString())
+        console.log(data.status, data.cookie)
+        return data.status, data.cookie,'test'
+      })
+      response.on('end', () => { })
+    })
+    request.end()
+    
+  })
+
+ipcMain.handle('index-quit', function (event) {
+  return createWindow.mainWindow
+})
