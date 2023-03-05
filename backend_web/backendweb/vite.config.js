@@ -9,7 +9,8 @@ import { ArcoResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), AutoImport({
+  plugins: [vue(
+  ), AutoImport({
     resolvers: [ArcoResolver()],
   }),
   Components({
@@ -23,5 +24,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: { //主要是加上这段代码
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:10000',	//实际请求地址
+        changeOrigin: true
+      },
+    }
   }
+
 })

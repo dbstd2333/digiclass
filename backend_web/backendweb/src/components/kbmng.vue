@@ -23,17 +23,17 @@
       <a-radio-group
         size="large"
         type="button"
-        v-model="kv.weekly"
-        :model-value="kv.weekly"
-        @change="changeweek(kv.weekly)"
+        v-model="kv.tweekly"
+        :model-value="kv.tweekly"
+        @change="changeweek(kv.tweekly)"
       >
-        <a-radio value=1>星期一</a-radio>
-        <a-radio value=2>星期二</a-radio>
-        <a-radio value=3>星期三</a-radio>
-        <a-radio value=4>星期四</a-radio>
-        <a-radio value=5>星期五</a-radio>
-        <a-radio value=6>星期六(上午)</a-radio>
-        <a-radio value=0>星期日(下午)</a-radio>
+        <a-radio value="1">星期一</a-radio>
+        <a-radio value="2">星期二</a-radio>
+        <a-radio value="3">星期三</a-radio>
+        <a-radio value="4">星期四</a-radio>
+        <a-radio value="5">星期五</a-radio>
+        <a-radio value="6">星期六(上午)</a-radio>
+        <a-radio value="0">星期日(下午)</a-radio>
       </a-radio-group>
     </div>
     <div style="margin-top: 80px">
@@ -1217,6 +1217,7 @@
 
 <script>
 import kv from "../assets/kv.js";
+import axios from "axios";
 export default {
   name: "SetSubj",
   data() {
@@ -1224,20 +1225,13 @@ export default {
       kv,
     };
   },
-  created() {
-    
-  },
+  created() {},
   methods: {
     submit() {
-      fetch(kv.globalurl + "/api/admin/changesubj", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        mode:'cors',
-        body: JSON.stringify({
+      axios
+        .post("/api/admin/changesubj", {
           classcode: kv.now_classcode,
-          weekly: kv.weekly,
+          weekly1: kv.tweekly,
           lession1: kv.lession1,
           src1: kv.src1,
           teacher1: kv.teacher1,
@@ -1250,7 +1244,7 @@ export default {
           lession4: kv.lession4,
           src4: kv.src4,
           teacher4: kv.teacher4,
-          lession5:kv.lession5,
+          lession5: kv.lession5,
           src5: kv.src5,
           teacher5: kv.teacher5,
           lession6: kv.lession6,
@@ -1280,36 +1274,73 @@ export default {
           lession14: kv.lession14,
           src14: kv.src14,
           teacher14: kv.teacher14,
-        }),
-      }).then((res) => {
-        console.log(res.data);
-        if (res.data.status !== "ok") {
-          this.$notification.error("提交失败");
-        } else {
-          this.$notification.success("提交成功");
-        }
-      });
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status !== "ok" || res.status != 200) {
+            this.$notification.error("提交失败");
+          } else {
+            this.$notification.success("提交成功");
+          }
+        });
     },
     changeclass(selectclass) {
       var msg = `切换到：` + selectclass;
       this.$message.info({ content: msg, showIcon: true });
     },
     changeweek() {
-      fetch(kv.globalurl + "/api/admin/getsubj", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        mode:'no-cors',
-        body: JSON.stringify({
+      axios
+        .post("/api/admin/getsubj", {
           classcode: kv.now_classcode,
-          weekly: kv.weekly
-        }),
-      }).then((res) => {
-        console.log(res.data);
-        
-      });
-      var msg = `切换到：星期` + kv.weekly;
+          weekly: kv.weekly,
+        })
+        .then((res) => {
+          kv.weekly = res.data.weekly;
+          kv.subject1 = res.data.lession1;
+          kv.subject2 = res.data.lession2;
+          kv.subject3 = res.data.lession3;
+          kv.subject4 = res.data.lession4;
+          kv.subject5 = res.data.lession5;
+          kv.subject6 = res.data.lession6;
+          kv.subject7 = res.data.lession7;
+          kv.subject8 = res.data.lession8;
+          kv.subject9 = res.data.lession9;
+          kv.subject10 = res.data.lession10;
+          kv.subject11 = res.data.lession11;
+          kv.subject12 = res.data.lession12;
+          kv.subject13 = res.data.lession13;
+          kv.subject14 = res.data.lession14;
+          kv.src1 = res.data.src1;
+          kv.src2 = res.data.src2;
+          kv.src3 = res.data.src3;
+          kv.src4 = res.data.src4;
+          kv.src5 = res.data.src5;
+          kv.src6 = res.data.src6;
+          kv.src7 = res.data.src7;
+          kv.src8 = res.data.src8;
+          kv.src9 = res.data.src9;
+          kv.src10 = res.data.src10;
+          kv.src11 = res.data.src11;
+          kv.src12 = res.data.src12;
+          kv.src13 = res.data.src13;
+          kv.src14 = res.data.src14;
+          kv.teacher1 = res.data.teacher1;
+          kv.teacher2 = res.data.teacher2;
+          kv.teacher3 = res.data.teacher3;
+          kv.teacher4 = res.data.teacher4;
+          kv.teacher5 = res.data.teacher5;
+          kv.teacher6 = res.data.teacher6;
+          kv.teacher7 = res.data.teacher7;
+          kv.teacher8 = res.data.teacher8;
+          kv.teacher9 = res.data.teacher9;
+          kv.teacher10 = res.data.teacher10;
+          kv.teacher11 = res.data.teacher11;
+          kv.teacher12 = res.data.teacher12;
+          kv.teacher13 = res.data.teacher13;
+          kv.teacher14 = res.data.teacher14;
+          console.log(res.data);
+        });
+      var msg = `切换到：星期` + kv.tweekly;
       this.$message.info({ content: msg, showIcon: true });
     },
     xuankechange(value, classcode, type, th) {

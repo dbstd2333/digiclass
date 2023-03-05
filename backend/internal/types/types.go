@@ -113,7 +113,7 @@ type GetTomrowSubjResp struct {
 
 type ChangeSubjReq struct {
 	ClassCode string `json:"classcode"`
-	Weekly    int    `json:"weekly"`
+	Weekly    string `json:"weekly1"`
 	Lession1  string `json:"lession1"`
 	Src1      bool   `json:"src1"`
 	Teacher1  string `json:"teacher1"`

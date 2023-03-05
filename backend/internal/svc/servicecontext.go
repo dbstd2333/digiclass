@@ -15,52 +15,52 @@ type ServiceContext struct {
 	Redis  *redis.Client
 }
 type Sbjjson struct {
-	Lession1  string `json:"lession1"`
-	Lession2  string `json:"lession2"`
-	Lession3  string `json:"lession3"`
-	Lession4  string `json:"lession4"`
-	Lession5  string `json:"lession5"`
-	Lession6  string `json:"lession6"`
-	Lession7  string `json:"lession7"`
-	Lession8  string `json:"lession8"`
-	Lession9  string `json:"lession9"`
-	Lession10 string `json:"lession10"`
-	Lession11 string `json:"lession11"`
-	Lession12 string `json:"lession12"`
-	Lession13 string `json:"lession13"`
-	Lession14 string `json:"lession14"`
+	Lession1  string
+	Lession2  string
+	Lession3  string
+	Lession4  string
+	Lession5  string
+	Lession6  string
+	Lession7  string
+	Lession8  string
+	Lession9  string
+	Lession10 string
+	Lession11 string
+	Lession12 string
+	Lession13 string
+	Lession14 string
 }
 type Teachjson struct {
-	Teacher1  string `json:"teacher1"`
-	Teacher2  string `json:"teacher2"`
-	Teacher3  string `json:"teacher3"`
-	Teacher4  string `json:"teacher4"`
-	Teacher5  string `json:"teacher5"`
-	Teacher6  string `json:"teacher6"`
-	Teacher7  string `json:"teacher7"`
-	Teacher8  string `json:"teacher8"`
-	Teacher9  string `json:"teacher9"`
-	Teacher10 string `json:"teacher10"`
-	Teacher11 string `json:"teacher11"`
-	Teacher12 string `json:"teacher12"`
-	Teacher13 string `json:"teacher13"`
-	Teacher14 string `json:"teacher14"`
+	Teacher1  string
+	Teacher2  string
+	Teacher3  string
+	Teacher4  string
+	Teacher5  string
+	Teacher6  string
+	Teacher7  string
+	Teacher8  string
+	Teacher9  string
+	Teacher10 string
+	Teacher11 string
+	Teacher12 string
+	Teacher13 string
+	Teacher14 string
 }
 type Srcjson struct {
-	Src1  bool `json:"src1"`
-	Src2  bool `json:"src2"`
-	Src3  bool `json:"src3"`
-	Src4  bool `json:"src4"`
-	Src5  bool `json:"src5"`
-	Src6  bool `json:"src6"`
-	Src7  bool `json:"src7"`
-	Src8  bool `json:"src8"`
-	Src9  bool `json:"src9"`
-	Src10 bool `json:"src10"`
-	Src11 bool `json:"src11"`
-	Src12 bool `json:"src12"`
-	Src13 bool `json:"src13"`
-	Src14 bool `json:"src14"`
+	Src1  bool
+	Src2  bool
+	Src3  bool
+	Src4  bool
+	Src5  bool
+	Src6  bool
+	Src7  bool
+	Src8  bool
+	Src9  bool
+	Src10 bool
+	Src11 bool
+	Src12 bool
+	Src13 bool
+	Src14 bool
 }
 type Userinf struct { //用户大表
 	Uuid      int64  `gorm:"primaryKey"`
@@ -68,13 +68,21 @@ type Userinf struct { //用户大表
 	Passwd    string `gorm:"size:20;index:idx_user"`
 	Info      string `gorm:"size:20"`
 }
-type ClassSubject struct { //课表
-	Uuid      int64     `gorm:"primaryKey"`
-	ClassCode string    `gorm:"size:20;index:idx_subj"`
-	Weekly    int8      `gorm:"index:idx_subj"`
-	Sbjname   Sbjjson   `gorm:"serializer:json"`
-	Teacher   Teachjson `gorm:"serializer:json"`
-	Src       Srcjson   `gorm:"serializer:json"`
+type ClassSubject struct { //课表json
+	Uuid      int64     `json:"uuid"`
+	ClassCode string    `json:"classcode"`
+	Weekly    int8      `json:"weekly"`
+	Sbjname   Sbjjson   `json:"sbjname"`
+	Teacher   Teachjson `json:"teacher"`
+	Src       Srcjson   `json:"src"`
+}
+type ClassSubject2 struct { //课表
+	Uuid      int64  `gorm:"primaryKey"`
+	ClassCode string `gorm:"size:20;index:idx_subj"`
+	Weekly    int8   `gorm:"index:idx_subj"`
+	Sbjname   string
+	Teacher   string
+	Src       string
 }
 type Message struct { //消息发布
 	Uuid      int64  `gorm:"primaryKey;index:idx_msgid"`
@@ -128,7 +136,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	}
 	sqlDB.SetMaxOpenConns(95)
 	Mysql.AutoMigrate(&Userinf{})
-	Mysql.AutoMigrate(&ClassSubject{})
+	Mysql.AutoMigrate(&ClassSubject2{})
 	Mysql.AutoMigrate(&Message{})
 	Mysql.AutoMigrate(&Log{})
 	Mysql.AutoMigrate(&Student{})

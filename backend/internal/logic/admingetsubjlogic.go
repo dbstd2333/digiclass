@@ -37,7 +37,7 @@ func (l *AdminGetSubjLogic) AdminGetSubj(req *types.AdminGetSubjReq) (resp *type
 		l.svcCtx.Mysql.Create(&logs)
 	}
 	var subject svc.ClassSubject
-	l.svcCtx.Mysql.Where("class_code = ? AND weekly = ?", req.ClassCode, int(time.Weekday(week))).First(&subject)
+	l.svcCtx.Mysql.Where("class_code = ? AND weekly = ?", req.ClassCode, week).First(&subject)
 	return &types.AdminGetSubjResp{
 		Lession1:  subject.Sbjname.Lession1,
 		Src1:      subject.Src.Src1,
