@@ -21,6 +21,7 @@ type Message struct {
 	ClassCode string
 	Msg       string
 	MsgTitle  string
+	Sender    string
 	Time      time.Time
 }
 
@@ -51,6 +52,7 @@ func (l *ClassMsgLogic) ClassMsg(req *types.ClassMsgReq) (resp *types.ClassMsgRe
 			MsgTitle:  msg.MsgTitle,
 			ClassCode: msg.ClassCode,
 			Time:      msg.Time.String(),
+			Sender:    msg.Sender,
 		}, nil
 	} else {
 		return &types.ClassMsgResp{
@@ -59,6 +61,7 @@ func (l *ClassMsgLogic) ClassMsg(req *types.ClassMsgReq) (resp *types.ClassMsgRe
 			MsgTitle:  cmsg.MsgTitle,
 			ClassCode: cmsg.ClassCode,
 			Time:      cmsg.Time.String(),
+			Sender:    cmsg.Sender,
 		}, nil
 	}
 }

@@ -96,6 +96,9 @@ func (l *GetSubjectLogic) GetSubject(req *types.GetSubjectReq) (resp *types.GetS
 			Lession13: subject.Sbjname.Lession13,
 			Src13:     subject.Src.Src13,
 			Teacher13: subject.Teacher.Teacher13,
+			Lession14: subject.Sbjname.Lession14,
+			Src14:     subject.Src.Src14,
+			Teacher14: subject.Teacher.Teacher14,
 		}, nil
 	} else {
 		return &types.GetSubjectResp{
@@ -139,6 +142,9 @@ func (l *GetSubjectLogic) GetSubject(req *types.GetSubjectReq) (resp *types.GetS
 			Lession13: sbj.Sbjname.Lession13,
 			Src13:     sbj.Src.Src13,
 			Teacher13: sbj.Teacher.Teacher13,
+			Lession14: sbj.Sbjname.Lession14,
+			Src14:     sbj.Src.Src14,
+			Teacher14: sbj.Teacher.Teacher14,
 		}, nil
 	}
 }

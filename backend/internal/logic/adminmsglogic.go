@@ -41,6 +41,7 @@ func (l *AdminMsgLogic) AdminMsg(req *types.AdminMsgReq) (resp *types.AdminMsgRe
 		ClassCode: req.ClassCode,
 		Msg:       req.Msg,
 		MsgTitle:  req.MsgTitle,
+		Sender:    req.Sender,
 		Time:      time.Now().Local(),
 	}
 	l.svcCtx.Mysql.Model(msg2).Table("messages").Create(&msg)

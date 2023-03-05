@@ -3,7 +3,7 @@ const rejson = {
     zhiri: "",
     lastmsgtime: "",
     tomorrow: 0,
-    weekly: "",
+    weekly: 1,
     lession1: "",
     src1: false,
     teacher1: "",

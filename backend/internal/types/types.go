@@ -172,12 +172,14 @@ type ClassMsgResp struct {
 	MsgTitle  string `json:"msgtitle"`
 	ClassCode string `json:"classcode"`
 	Time      string `json:"time"`
+	Sender    string `json:"sender"`
 }
 
 type AdminMsgReq struct {
 	Msg       string `json:"msg"`
 	MsgTitle  string `json:"msgtitle"`
 	ClassCode string `json:"classcode"`
+	Sender    string `json:"sender"`
 }
 
 type AdminMsgResp struct {
@@ -186,7 +188,7 @@ type AdminMsgResp struct {
 
 type AdminGetSubjReq struct {
 	ClassCode string `json:"classcode"`
-	Weekly    int    `json:"weekly"`
+	Weekly    string `json:"weekly"`
 }
 
 type AdminGetSubjResp struct {

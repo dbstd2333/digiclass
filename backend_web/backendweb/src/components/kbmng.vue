@@ -27,13 +27,13 @@
         :model-value="kv.weekly"
         @change="changeweek(kv.weekly)"
       >
-        <a-radio value="1">星期一</a-radio>
-        <a-radio value="2">星期二</a-radio>
-        <a-radio value="3">星期三</a-radio>
-        <a-radio value="4">星期四</a-radio>
-        <a-radio value="5">星期五</a-radio>
-        <a-radio value="6">星期六(上午)</a-radio>
-        <a-radio value="0">星期日(下午)</a-radio>
+        <a-radio value=1>星期一</a-radio>
+        <a-radio value=2>星期二</a-radio>
+        <a-radio value=3>星期三</a-radio>
+        <a-radio value=4>星期四</a-radio>
+        <a-radio value=5>星期五</a-radio>
+        <a-radio value=6>星期六(上午)</a-radio>
+        <a-radio value=0>星期日(下午)</a-radio>
       </a-radio-group>
     </div>
     <div style="margin-top: 80px">
@@ -1225,20 +1225,7 @@ export default {
     };
   },
   created() {
-    fetch(kv.globalurl + "/api/admin/changesubj", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        mode:'cors',
-        body: JSON.stringify({
-          classcode: kv.classcode,
-          weekly: kv.weekly
-        }),
-      }).then((res) => {
-        console.log(res.data);
-        
-      });
+    
   },
   methods: {
     submit() {
@@ -1249,7 +1236,7 @@ export default {
         },
         mode:'cors',
         body: JSON.stringify({
-          classcode: kv.classcode,
+          classcode: kv.now_classcode,
           weekly: kv.weekly,
           lession1: kv.lession1,
           src1: kv.src1,
@@ -1307,8 +1294,22 @@ export default {
       var msg = `切换到：` + selectclass;
       this.$message.info({ content: msg, showIcon: true });
     },
-    changeweek(weekly) {
-      var msg = `切换到：星期` + weekly;
+    changeweek() {
+      fetch(kv.globalurl + "/api/admin/getsubj", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        mode:'no-cors',
+        body: JSON.stringify({
+          classcode: kv.now_classcode,
+          weekly: kv.weekly
+        }),
+      }).then((res) => {
+        console.log(res.data);
+        
+      });
+      var msg = `切换到：星期` + kv.weekly;
       this.$message.info({ content: msg, showIcon: true });
     },
     xuankechange(value, classcode, type, th) {

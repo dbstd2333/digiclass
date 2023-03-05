@@ -165,19 +165,21 @@ type (
 		MsgTitle  string `json:"msgtitle"`
 		ClassCode string `json:"classcode"`
 		Time      string `json:"time"`
+		Sender    string `json:"sender"`
 	}
 
 	AdminMsgReq {
 		Msg       string `json:"msg"`
 		MsgTitle  string `json:"msgtitle"`
 		ClassCode string `json:"classcode"`
+		Sender    string `json:"sender"`
 	}
 	AdminMsgResp {
 		Status string `json:"status"`
 	}
 	AdminGetSubjReq {
 		ClassCode string `json:"classcode"`
-		Weekly    int    `json:"weekly"`
+		Weekly    string `json:"weekly"`
 	}
 	AdminGetSubjResp {
 		Lession1  string `json:"lession1"`
