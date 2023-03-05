@@ -42,6 +42,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/api/admin/setmsg",
 				Handler: AdminMsgHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/admin/getsubj",
+				Handler: AdminGetSubjHandler(serverCtx),
+			},
 		},
 	)
 }

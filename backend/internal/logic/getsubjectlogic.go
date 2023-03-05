@@ -33,7 +33,7 @@ func NewGetSubjectLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetSub
 }
 
 func (l *GetSubjectLogic) GetSubject(req *types.GetSubjectReq) (resp *types.GetSubjectResp, err error) {
-	rsbj, err := l.svcCtx.Redis.Get(req.Cookie).Result()
+	rsbj, err := l.svcCtx.Redis.Get(req.Cookie + time.Now().Weekday().String()).Result()
 	sbj := Subject{}
 	errj := json.Unmarshal([]byte(rsbj), &sbj)
 	if err != nil || errj != nil { //查mysql ，write redis , re data
@@ -43,10 +43,10 @@ func (l *GetSubjectLogic) GetSubject(req *types.GetSubjectReq) (resp *types.GetS
 			Time: time.Now(),
 		}
 		l.svcCtx.Mysql.Create(&logs)
-		var subject svc.Subject
+		var subject svc.ClassSubject
 		l.svcCtx.Mysql.Where("class_code = ? AND weekly = ?", req.Cookie, int(time.Now().Weekday())).First(&subject)
 		rsubject, _ := json.Marshal(&subject)
-		rwerr := l.svcCtx.Redis.Set(req.Cookie, rsubject, 28800*time.Second).Err()
+		rwerr := l.svcCtx.Redis.Set(req.Cookie+time.Now().Weekday().String(), rsubject, 28800*time.Second).Err()
 		if rwerr != nil {
 			logs := svc.Log{
 				Type: "warning",

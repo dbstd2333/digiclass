@@ -25,7 +25,7 @@ func NewGetTomrowSubjLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Get
 }
 
 func (l *GetTomrowSubjLogic) GetTomrowSubj(req *types.GetTomrowSubjReq) (resp *types.GetTomrowSubjResp, err error) {
-	var subject svc.Subject
+	var subject svc.ClassSubject
 	l.svcCtx.Mysql.Where("class_code = ? AND weekly = ?", req.Cookie, int(time.Now().Weekday())+1).First(&subject)
 	return &types.GetTomrowSubjResp{
 		Weekly:    "Tomorrow",

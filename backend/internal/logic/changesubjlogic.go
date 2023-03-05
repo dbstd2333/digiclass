@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"time"
 
 	"backend/internal/svc"
 	"backend/internal/types"
@@ -24,7 +25,7 @@ func NewChangeSubjLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Change
 }
 
 func (l *ChangeSubjLogic) ChangeSubj(req *types.ChangeSubjReq) (resp *types.ChangeSubjResp, err error) {
-	l.svcCtx.Redis.Del(req.ClassCode)
+	l.svcCtx.Redis.Del(req.ClassCode + time.Weekday(req.Weekly).String())
 	//var sbj svc.Subject
 	subject := &Subject{
 		ClassCode: req.ClassCode,
@@ -43,6 +44,7 @@ func (l *ChangeSubjLogic) ChangeSubj(req *types.ChangeSubjReq) (resp *types.Chan
 			Lession11: req.Lession11,
 			Lession12: req.Lession12,
 			Lession13: req.Lession13,
+			Lession14: req.Lession14,
 		},
 		Teacher: svc.Teachjson{
 			Teacher1:  req.Teacher1,
@@ -58,25 +60,34 @@ func (l *ChangeSubjLogic) ChangeSubj(req *types.ChangeSubjReq) (resp *types.Chan
 			Teacher11: req.Teacher11,
 			Teacher12: req.Teacher12,
 			Teacher13: req.Teacher13,
+			Teacher14: req.Teacher14,
 		},
 		Src: svc.Srcjson{
-			Src1:  "",
-			Src2:  "",
-			Src3:  "",
-			Src4:  "",
-			Src5:  "",
-			Src6:  "",
-			Src7:  "",
-			Src8:  "",
-			Src9:  "",
-			Src10: "",
-			Src11: "",
-			Src12: "",
-			Src13: "",
+			Src1:  req.Src1,
+			Src2:  req.Src2,
+			Src3:  req.Src3,
+			Src4:  req.Src4,
+			Src5:  req.Src5,
+			Src6:  req.Src6,
+			Src7:  req.Src7,
+			Src8:  req.Src8,
+			Src9:  req.Src9,
+			Src10: req.Src10,
+			Src11: req.Src11,
+			Src12: req.Src12,
+			Src13: req.Src13,
+			Src14: req.Src14,
 		},
 	}
-	l.svcCtx.Mysql.Table("subjects").Where("class_code = ? AND weekly = ?", req.ClassCode, req.Weekly).Updates(subject)
-	return &types.ChangeSubjResp{
-		Status: "ok",
-	}, nil
+	err = l.svcCtx.Mysql.Table("subjects").Where("class_code = ? AND weekly = ?", req.ClassCode, req.Weekly).Updates(subject).Error
+	if err != nil {
+		return &types.ChangeSubjResp{
+			Status: "err:" + err.Error(),
+		}, nil
+	} else {
+		return &types.ChangeSubjResp{
+			Status: "ok",
+		}, nil
+	}
+
 }

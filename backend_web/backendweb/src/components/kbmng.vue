@@ -14,7 +14,26 @@
         <a-radio value="g1c4">高一 4班</a-radio>
         <a-radio value="g1c5">高一 5班</a-radio>
         <a-radio value="g1c6">高一 6班</a-radio>
-        <a-radio value="g1c413">高一 A413</a-radio>
+        <a-radio value="g1z1">高一 走班1</a-radio>
+        <a-radio value="g1z2">高一 走班2</a-radio>
+        <a-radio value="g1z3">高一 走班3</a-radio>
+      </a-radio-group>
+    </div>
+    <div :style="{ marginTop: '20px' }">
+      <a-radio-group
+        size="large"
+        type="button"
+        v-model="kv.weekly"
+        :model-value="kv.weekly"
+        @change="changeweek(kv.weekly)"
+      >
+        <a-radio value="1">星期一</a-radio>
+        <a-radio value="2">星期二</a-radio>
+        <a-radio value="3">星期三</a-radio>
+        <a-radio value="4">星期四</a-radio>
+        <a-radio value="5">星期五</a-radio>
+        <a-radio value="6">星期六(上午)</a-radio>
+        <a-radio value="0">星期日(下午)</a-radio>
       </a-radio-group>
     </div>
     <div style="margin-top: 80px">
@@ -31,7 +50,7 @@
               >
                 <a-optgroup label="早读">
                   <a-option>语文</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
               </a-select>
               <div :style="{ fontSize: '12px', color: '#4E5969' }">
@@ -46,7 +65,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="英语老师">
                     <a-option>缪雪剑</a-option>
@@ -72,7 +91,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -97,7 +116,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -158,7 +177,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -183,7 +202,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -244,7 +263,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -269,7 +288,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -330,7 +349,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -355,7 +374,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -416,7 +435,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -441,7 +460,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -502,7 +521,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -527,7 +546,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -588,7 +607,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -613,7 +632,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -674,7 +693,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -699,7 +718,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -764,7 +783,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -789,7 +808,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -850,7 +869,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -875,7 +894,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -936,7 +955,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -961,7 +980,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -1022,7 +1041,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -1047,7 +1066,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -1108,7 +1127,7 @@
                 <a-optgroup label="必选">
                   <a-option>语文</a-option>
                   <a-option>数学</a-option>
-                  <a-option>英语</a-option>
+                  <a-option>英语</a-option><a-option>休息</a-option>
                 </a-optgroup>
                 <a-optgroup label="走班-理">
                   <a-option>物理</a-option>
@@ -1133,7 +1152,7 @@
                   <a-optgroup label="语文老师">
                     <a-option>梁正平</a-option>
                     <a-option>裴玉东</a-option>
-                    <a-option>王道军</a-option>
+                    <a-option>王道军</a-option><a-option>休息</a-option>
                   </a-optgroup>
                   <a-optgroup label="数学老师">
                     <a-option>黄立秋</a-option>
@@ -1206,18 +1225,95 @@ export default {
     };
   },
   created() {
-    return {};
+    fetch(kv.globalurl + "/api/admin/changesubj", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        mode:'cors',
+        body: JSON.stringify({
+          classcode: kv.classcode,
+          weekly: kv.weekly
+        }),
+      }).then((res) => {
+        console.log(res.data);
+        
+      });
   },
   methods: {
     submit() {
-      this.$notification.success('触发submit()')
+      fetch(kv.globalurl + "/api/admin/changesubj", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        mode:'cors',
+        body: JSON.stringify({
+          classcode: kv.classcode,
+          weekly: kv.weekly,
+          lession1: kv.lession1,
+          src1: kv.src1,
+          teacher1: kv.teacher1,
+          lession2: kv.lession2,
+          src2: kv.src2,
+          teacher2: kv.teacher2,
+          lession3: kv.lession3,
+          src3: kv.src3,
+          teacher3: kv.teacher3,
+          lession4: kv.lession4,
+          src4: kv.src4,
+          teacher4: kv.teacher4,
+          lession5:kv.lession5,
+          src5: kv.src5,
+          teacher5: kv.teacher5,
+          lession6: kv.lession6,
+          src6: kv.src6,
+          teacher6: kv.teacher6,
+          lession7: kv.lession7,
+          src7: kv.src7,
+          teacher7: kv.teacher7,
+          lession8: kv.lession8,
+          src8: kv.src8,
+          teacher8: kv.teacher8,
+          lession9: kv.lession9,
+          src9: kv.src9,
+          teacher9: kv.teacher9,
+          lession10: kv.lession10,
+          src10: kv.src10,
+          teacher10: kv.teacher10,
+          lession11: kv.lession11,
+          src11: kv.src11,
+          teacher11: kv.teacher11,
+          lession12: kv.lession2,
+          src12: kv.src12,
+          teacher12: kv.teacher12,
+          lession13: kv.lession12,
+          src13: kv.src13,
+          teacher13: kv.teacher13,
+          lession14: kv.lession14,
+          src14: kv.src14,
+          teacher14: kv.teacher14,
+        }),
+      }).then((res) => {
+        console.log(res.data);
+        if (res.data.status !== "ok") {
+          this.$notification.error("提交失败");
+        } else {
+          this.$notification.success("提交成功");
+        }
+      });
     },
     changeclass(selectclass) {
       var msg = `切换到：` + selectclass;
       this.$message.info({ content: msg, showIcon: true });
     },
+    changeweek(weekly) {
+      var msg = `切换到：星期` + weekly;
+      this.$message.info({ content: msg, showIcon: true });
+    },
     xuankechange(value, classcode, type, th) {
       console.log(value, classcode, type, th);
+      console.log(kv);
     },
   },
 };

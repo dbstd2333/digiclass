@@ -1,6 +1,5 @@
 const rejson = {
     classcode: "null",
-    publicpwd: "xjcwxgk-db2333",
     zhiri: "",
     lastmsgtime: "",
     tomorrow: 0,
@@ -51,6 +50,9 @@ const rejson = {
     msgid: 0,
     msg: "",
     msgtitle: "",
-    now_classcode:""
+    now_classcode:"",
+    username:"",
+    passwd:"",
+    globalurl:"http://127.0.0.1:10000"
 };
 export default rejson;

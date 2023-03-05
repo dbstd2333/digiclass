@@ -4,15 +4,15 @@
       <a-layout-header
         ><a-space style="margin-left: 15px; margin-top: 20px">
           <img
-            alt="logo"
-            src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
+            alt="logo" style="width: 30px;"
+            src="../assets/xjcw.png"
           />
           <a-typography-title
             :style="{ margin: 0, fontSize: '18px' }"
             :heading="6"
             class="title"
           >
-            新津成外新高考走班排课管理后台
+            新津成外学生发展中心云平台 - 数据管理中台
           </a-typography-title>
           <icon-menu-fold
             style="font-size: 22px; cursor: pointer"
@@ -28,16 +28,24 @@
             @menu-item-click="onClickMenuItem"
           >
             <a-menu-item key="01">
-              <IconHome></IconHome>
+              <icon-apps />
               修改课表
             </a-menu-item>
             <a-menu-item key="02">
-              <IconCalendar></IconCalendar>
+              <icon-message />
               发布消息
             </a-menu-item>
             <a-menu-item key="03">
-              <IconCalendar></IconCalendar>
-              走班统计
+              <icon-user-group />
+              走班管理
+            </a-menu-item>
+            <a-menu-item key="04">
+              <icon-star />
+              积分统计
+            </a-menu-item>
+            <a-menu-item key="05">
+              <icon-ordered-list />
+              课时统计
             </a-menu-item>
           </a-menu></a-layout-sider
         >
@@ -53,14 +61,17 @@
 import { defineComponent } from "vue";
 import { Message } from "@arco-design/web-vue";
 import {
-  IconCaretRight,
-  IconCaretLeft,
-  IconHome,
-  IconCalendar,
+  IconApps,
+  IconMessage,
+  IconUserGroup,
+  IconStar,
+  IconOrderedList,
 } from "@arco-design/web-vue/es/icon";
 import SetSubj from "./kbmng.vue";
 import StuMng from "./stumng.vue";
 import SetMsg from "./setmsg.vue";
+import Score from "./score.vue";
+import TLession from "./tlession.vue";
 
 export default defineComponent({
   data() {
@@ -69,30 +80,43 @@ export default defineComponent({
     };
   },
   components: {
-    IconCaretRight,
-    IconCaretLeft,
-    IconHome,
-    IconCalendar,
+    IconApps,
+    IconMessage,
+    IconUserGroup,
+    IconStar,
+    IconOrderedList,
     SetSubj,
     StuMng,
     SetMsg,
+    Score,
+    TLession,
   },
   methods: {
     onClickMenuItem(key) {
       if (key == "01") {
         this.comName = SetSubj;
         Message.info({ content: `切换到修改课表`, showIcon: true });
-        this.$forceUpdate()
+        this.$forceUpdate();
       }
       if (key == "02") {
         this.comName = SetMsg;
         Message.info({ content: `切换到发布消息`, showIcon: true });
-        this.$forceUpdate()
+        this.$forceUpdate();
       }
       if (key == "03") {
         this.comName = StuMng;
         Message.info({ content: `切换到走班统计`, showIcon: true });
-        this.$forceUpdate()
+        this.$forceUpdate();
+      }
+      if (key == "04") {
+        this.comName = Score;
+        Message.info({ content: `切换到积分管理`, showIcon: true });
+        this.$forceUpdate();
+      }
+      if (key == "05") {
+        this.comName = TLession;
+        Message.info({ content: `切换到课时统计`, showIcon: true });
+        this.$forceUpdate();
       }
     },
   },
