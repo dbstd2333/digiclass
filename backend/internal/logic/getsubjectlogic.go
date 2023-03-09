@@ -36,12 +36,7 @@ func (l *GetSubjectLogic) GetSubject(req *types.GetSubjectReq) (resp *types.GetS
 	rsbj, err := l.svcCtx.Redis.Get(req.Cookie + time.Now().Weekday().String()).Result()
 	sbj := Subject{}
 	errj := json.Unmarshal([]byte(rsbj), &sbj)
-	var sbjjson svc.Sbjjson
-	errj = json.Unmarshal([]byte(sbj.Sbjname), &sbjjson)
-	var teacher svc.Teachjson
-	errj = json.Unmarshal([]byte(sbj.Teacher), &teacher)
-	var src svc.Srcjson
-	errj = json.Unmarshal([]byte(sbj.Src), &src)
+
 	if err != nil || errj != nil { //查mysql ，write redis , re data
 		logs := svc.Log{
 			Type: "info",
@@ -50,7 +45,7 @@ func (l *GetSubjectLogic) GetSubject(req *types.GetSubjectReq) (resp *types.GetS
 		}
 		l.svcCtx.Mysql.Create(&logs)
 		var subject svc.ClassSubject2
-		l.svcCtx.Mysql.Where("class_code = ? AND weekly = ?", req.Cookie, int(time.Now().Weekday())).First(&subject)
+		l.svcCtx.Mysql.Table("class_subjects").Where("class_code = ? AND weekly = ?", req.Cookie, int(time.Now().Weekday())).First(&subject)
 		rsubject, _ := json.Marshal(&subject)
 		rwerr := l.svcCtx.Redis.Set(req.Cookie+time.Now().Weekday().String(), rsubject, 28800*time.Second).Err()
 		if rwerr != nil {
@@ -113,6 +108,12 @@ func (l *GetSubjectLogic) GetSubject(req *types.GetSubjectReq) (resp *types.GetS
 			Teacher14: teacher.Teacher14,
 		}, nil
 	} else {
+		var sbjjson svc.Sbjjson
+		errj = json.Unmarshal([]byte(sbj.Sbjname), &sbjjson)
+		var teacher svc.Teachjson
+		errj = json.Unmarshal([]byte(sbj.Teacher), &teacher)
+		var src svc.Srcjson
+		errj = json.Unmarshal([]byte(sbj.Src), &src)
 		return &types.GetSubjectResp{
 			Weekly:    time.Now().Weekday().String(),
 			Lession1:  sbjjson.Lession1,

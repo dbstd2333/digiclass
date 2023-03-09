@@ -1218,6 +1218,7 @@
 <script>
 import kv from "../assets/kv.js";
 import axios from "axios";
+import {ref} from "vue"
 export default {
   name: "SetSubj",
   data() {
@@ -1225,7 +1226,14 @@ export default {
       kv,
     };
   },
-  created() {},
+  beforecreated() {
+    console.log("start beforecreated");
+    this.changeweek();
+    this.fls();
+  },
+  setup(){
+    const kv = ref({});
+  },
   methods: {
     submit() {
       axios
@@ -1284,6 +1292,10 @@ export default {
           }
         });
     },
+    fls() {
+      this.kv.$forceUpdate();
+      console.log("forece end");
+    },
     changeclass(selectclass) {
       var msg = `切换到：` + selectclass;
       this.$message.info({ content: msg, showIcon: true });
@@ -1292,56 +1304,62 @@ export default {
       axios
         .post("/api/admin/getsubj", {
           classcode: kv.now_classcode,
-          weekly: kv.weekly,
+          weekly: kv.tweekly,
         })
         .then((res) => {
-          kv.weekly = res.data.weekly;
-          kv.subject1 = res.data.lession1;
-          kv.subject2 = res.data.lession2;
-          kv.subject3 = res.data.lession3;
-          kv.subject4 = res.data.lession4;
-          kv.subject5 = res.data.lession5;
-          kv.subject6 = res.data.lession6;
-          kv.subject7 = res.data.lession7;
-          kv.subject8 = res.data.lession8;
-          kv.subject9 = res.data.lession9;
-          kv.subject10 = res.data.lession10;
-          kv.subject11 = res.data.lession11;
-          kv.subject12 = res.data.lession12;
-          kv.subject13 = res.data.lession13;
-          kv.subject14 = res.data.lession14;
-          kv.src1 = res.data.src1;
-          kv.src2 = res.data.src2;
-          kv.src3 = res.data.src3;
-          kv.src4 = res.data.src4;
-          kv.src5 = res.data.src5;
-          kv.src6 = res.data.src6;
-          kv.src7 = res.data.src7;
-          kv.src8 = res.data.src8;
-          kv.src9 = res.data.src9;
-          kv.src10 = res.data.src10;
-          kv.src11 = res.data.src11;
-          kv.src12 = res.data.src12;
-          kv.src13 = res.data.src13;
-          kv.src14 = res.data.src14;
-          kv.teacher1 = res.data.teacher1;
-          kv.teacher2 = res.data.teacher2;
-          kv.teacher3 = res.data.teacher3;
-          kv.teacher4 = res.data.teacher4;
-          kv.teacher5 = res.data.teacher5;
-          kv.teacher6 = res.data.teacher6;
-          kv.teacher7 = res.data.teacher7;
-          kv.teacher8 = res.data.teacher8;
-          kv.teacher9 = res.data.teacher9;
-          kv.teacher10 = res.data.teacher10;
-          kv.teacher11 = res.data.teacher11;
-          kv.teacher12 = res.data.teacher12;
-          kv.teacher13 = res.data.teacher13;
-          kv.teacher14 = res.data.teacher14;
+          this.kv.weekly = res.data.weekly;
+          this.kv.lession1 = res.data.lession1;
+          this.kv.lession2 = res.data.lession2;
+          this.kv.lession3 = res.data.lession3;
+          this.kv.lession4 = res.data.lession4;
+          this.kv.lession5 = res.data.lession5;
+          this.kv.lession6 = res.data.lession6;
+          this.kv.lession7 = res.data.lession7;
+          this.kv.lession8 = res.data.lession8;
+          this.kv.lession9 = res.data.lession9;
+          this.kv.lession10 = res.data.lession10;
+          this.kv.lession11 = res.data.lession11;
+          this.kv.lession12 = res.data.lession12;
+          this.kv.lession13 = res.data.lession13;
+          this.kv.lession14 = res.data.lession14;
+          this.kv.src1 = res.data.src1;
+          this.kv.src2 = res.data.src2;
+          this.kv.src3 = res.data.src3;
+          this.kv.src4 = res.data.src4;
+          this.kv.src5 = res.data.src5;
+          this.kv.src6 = res.data.src6;
+          this.kv.src7 = res.data.src7;
+          this.kv.src8 = res.data.src8;
+          this.kv.src9 = res.data.src9;
+          this.kv.src10 = res.data.src10;
+          this.kv.src11 = res.data.src11;
+          this.kv.src12 = res.data.src12;
+          this.kv.src13 = res.data.src13;
+          this.kv.src14 = res.data.src14;
+          this.kv.teacher1 = res.data.teacher1;
+          this.kv.teacher2 = res.data.teacher2;
+          this.kv.teacher3 = res.data.teacher3;
+          this.kv.teacher4 = res.data.teacher4;
+          this.kv.teacher5 = res.data.teacher5;
+          this.kv.teacher6 = res.data.teacher6;
+          this.kv.teacher7 = res.data.teacher7;
+          this.kv.teacher8 = res.data.teacher8;
+          this.kv.teacher9 = res.data.teacher9;
+          this.kv.teacher10 = res.data.teacher10;
+          this.kv.teacher11 = res.data.teacher11;
+          this.kv.teacher12 = res.data.teacher12;
+          this.kv.teacher13 = res.data.teacher13;
+          this.kv.teacher14 = res.data.teacher14;
           console.log(res.data);
+          var msg = `切换到：星期` + kv.tweekly;
+          this.$message.info({ content: msg, showIcon: true });
+          this.kv.$forceUpdate();
+          console.log("forece end");
+          return {
+            kv,
+          };
         });
-      var msg = `切换到：星期` + kv.tweekly;
-      this.$message.info({ content: msg, showIcon: true });
+      this.fls();
     },
     xuankechange(value, classcode, type, th) {
       console.log(value, classcode, type, th);

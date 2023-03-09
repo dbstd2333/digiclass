@@ -88,7 +88,7 @@ func (l *ChangeSubjLogic) ChangeSubj(req *types.ChangeSubjReq) (resp *types.Chan
 		Teacher:   string(teacherbyte),
 		Src:       string(srcbyte),
 	}
-	err = l.svcCtx.Mysql.Table("subjects").Where("class_code = ? AND weekly = ?", req.ClassCode, week).Updates(subject).Error
+	err = l.svcCtx.Mysql.Table("class_subjects").Where("class_code = ? AND weekly = ?", req.ClassCode, week).Updates(subject).Error
 	if err != nil {
 		return &types.ChangeSubjResp{
 			Status: "err:" + err.Error(),

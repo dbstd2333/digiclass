@@ -7,6 +7,7 @@ import (
 	"github.com/go-redis/redis"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/plugin/prometheus"
 )
 
 type ServiceContext struct {
@@ -127,6 +128,18 @@ type TeacherLession struct { //老师课时统计
 func NewServiceContext(c config.Config) *ServiceContext {
 	dsn := "digiclass:nhZhfep3pK3txs2c@tcp(119.23.69.180:3306)/digiclass?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai"
 	Mysql, err := gorm.Open(mysql.Open(dsn), &gorm.Config{PrepareStmt: true})
+	Mysql.Use(prometheus.New(prometheus.Config{
+		DBName:          "digicalssDB",               // 使用 `DBName` 作为指标 label
+		RefreshInterval: 15,                          // 指标刷新频率（默认为 15 秒）
+		PushAddr:        "prometheus pusher address", // 如果配置了 `PushAddr`，则推送指标
+		StartServer:     true,                        // 启用一个 http 服务来暴露指标
+		HTTPServerPort:  10002,                       // 配置 http 服务监听端口，默认端口为 8080 （如果您配置了多个，只有第一个 `HTTPServerPort` 会被使用）
+		MetricsCollector: []prometheus.MetricsCollector{
+			&prometheus.MySQL{
+				VariableNames: []string{"Threads_running"},
+			},
+		}, // 用户自定义指标
+	}))
 	sqlDB, err2 := Mysql.DB()
 	if err != nil {
 		println(err.Error())
